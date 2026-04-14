@@ -32,8 +32,8 @@ public:
                     cv.wait(lock, [this] {
                         return !tasks.empty() || stop;
                     });
-                    if (stop) return;
-                    
+                    if (stop && tasks.empty()) return;
+                    if (tasks.empty()) continue;  
                     currtask = move(tasks.front());
                     tasks.pop();
                     lock.unlock();
