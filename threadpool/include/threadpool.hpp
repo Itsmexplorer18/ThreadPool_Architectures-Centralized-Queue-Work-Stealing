@@ -62,6 +62,7 @@ public:
         future<return_type> res = task->get_future();
         {
             unique_lock<mutex> lock(mtx);
+            if (stop) throw runtime_error("ThreadPool is stopped");
             tasks.emplace([task]() {
                 (*task)();
             });
