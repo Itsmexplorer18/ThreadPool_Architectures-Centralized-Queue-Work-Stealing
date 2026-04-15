@@ -88,12 +88,16 @@ private:
 
             task = queues[id]->pop();
 
+            static thread_local std::mt19937 gen(std::random_device{}());//random number generator rand() is not thread safe
+            std::uniform_int_distribution<> dis(0, numWorkers - 1); 
             if (!task) {
+                int start = dis(gen);
                 for (int i = 0; i < numWorkers && !task; ++i) {
-                    if (i == id) continue;
-                    task = queues[i]->steal(id);
-                }
-            }
+                     int victim = (start + i) % numWorkers;
+                     if (victim == id) continue;
+                     task = queues[victim]->steal(id);
+    }
+}
 
             if (task) {
                 activeWorkers.fetch_add(1, std::memory_order_relaxed);
