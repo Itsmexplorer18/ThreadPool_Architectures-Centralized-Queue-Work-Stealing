@@ -20,7 +20,9 @@
 | Overhead | Low | Medium (task spawning) |
 | Best For | I/O, variable tasks | CPU-intensive recursion |
 | Examples | Image processing | Merge sort, tree traversal |
-
+ # fork join pool with work stealing:
+ benifits of having own deque per thread:
+ instead of having a centralised work queue each thread has its own tasks queue 
 
 ## When to Use What?
 **Use ThreadPool when:**
@@ -31,11 +33,11 @@
 **Use ForkJoin when:**
 - Recursive algorithms
 - Divide-and-conquer problems
-- ## to-do-optimizations and theoritical understanding
-- false sharing
-- child stealing vs continuation stealing
-- lock free implementation 
 
+
+# performance measure:
+## threadpool:
+## fork join threadpool
 
 ## Requirements
 
